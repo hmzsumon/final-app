@@ -1,4 +1,6 @@
 import React from 'react';
+import useFetch from '../../hocks/usefetch';
+import Spinner from '../about/spinner/Spinner';
 
 const interestContent = [
 	{
@@ -20,27 +22,33 @@ const interestContent = [
 ];
 
 const Interest = () => {
+	const { loading, error, data } = useFetch(
+		'https://kashriff-admin.herokuapp.com/interests'
+	);
+
+	if (loading || error)
+		return (
+			<h1>
+				<Spinner />
+			</h1>
+		);
+	if (error) return <h1>Error...</h1>;
+	console.log(data);
 	return (
 		<>
-			<div className='row '>
+			<div className='interest-wrapper'>
 				{/* <div className=''>
 					<h3 className='title-interest'>Interest</h3>
 				</div> */}
-				{interestContent.map((val, i) => (
+				{data.map((val, i) => (
 					<div
-						className='col-lg-3 m-15px-tb '
+						className='item-interest'
 						key={i}
 						data-aos='fade-right'
 						data-aos-duration='1200'
 						data-aos-delay={val.delayAnimation}
 					>
-						<div className='feature-box-02 d-flex align-items-center bg-white justify-content-center'>
-							<img
-								src={`img/interest/${val.img}.png`}
-								alt='award'
-								style={{ width: '40%' }}
-							/>
-						</div>
+						<img src={val.icon[0].url} alt='award' />
 					</div>
 					// End .col
 				))}

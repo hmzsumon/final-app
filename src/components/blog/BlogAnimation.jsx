@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import useFetch from '../../hocks/usefetch';
+import Spinner from '../about/spinner/Spinner';
 import Contact from '../contact/Contact';
 
 Modal.setAppElement('#root');
@@ -28,9 +29,14 @@ const News = () => {
 		setIsOpen4(!isOpen4);
 	}
 
-	if (loading) return <p>Loading...</p>;
+	if (loading)
+		return (
+			<p>
+				<Spinner />
+			</p>
+		);
 	if (error) return <p>Error!</p>;
-	console.log(data[0]);
+
 	return (
 		<>
 			<div className='row'>

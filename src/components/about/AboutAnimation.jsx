@@ -6,6 +6,7 @@ import Interest from '../Interest/Interest';
 
 import useFetch from '../../hocks/usefetch';
 import { format } from 'date-fns';
+import Spinner from './spinner/Spinner';
 
 const About = () => {
 	const { loading, error, data } = useFetch(
@@ -17,7 +18,12 @@ const About = () => {
 		data: data2,
 	} = useFetch('https://kashriff-admin.herokuapp.com/headins');
 
-	if (loading || loading2) return <h1>Loading...</h1>;
+	if (loading || loading2)
+		return (
+			<h1>
+				<Spinner />
+			</h1>
+		);
 	if (error || error2) return <h1>Error...</h1>;
 
 	const {
