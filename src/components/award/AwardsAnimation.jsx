@@ -1,4 +1,6 @@
 import React from 'react';
+import useFetch from '../../hocks/usefetch';
+import Spinner from '../about/spinner/Spinner';
 
 const AwardContnet = [
 	{
@@ -22,10 +24,20 @@ const AwardContnet = [
 ];
 
 const Awards = () => {
+	const { loading, error, data } = useFetch(
+		'https://kashriff-admin.herokuapp.com/awards'
+	);
+	if (loading)
+		return (
+			<h1>
+				<Spinner />
+			</h1>
+		);
+	if (error) return <h1>Error...</h1>;
 	return (
 		<>
 			<div className='row'>
-				{AwardContnet.map((val, i) => (
+				{data.map((val, i) => (
 					<div
 						className='col-lg-4 m-15px-tb'
 						key={i}
@@ -35,11 +47,13 @@ const Awards = () => {
 					>
 						<div className='feature-box-02 d-flex align-items-center'>
 							<div className='icon'>
-								<img src={`img/award/${val.img}.png`} alt='award' />
+								<img src={val.icon.url} alt='award' />
 							</div>
 							<div className='media-body'>
-								<h6>{val.awardName}</h6>
-								<p>{val.awardFor}</p>
+								<p className='font-weight-bold' style={{ fontWeight: 'bold' }}>
+									{val.title}
+								</p>
+								<p>{val.description}</p>
 							</div>
 						</div>
 					</div>

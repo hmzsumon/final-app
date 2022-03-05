@@ -13,7 +13,7 @@ import useFetch from '../../hocks/usefetch';
 import Spinner from '../../components/about/spinner/Spinner';
 
 const HomeOne = () => {
-	useDocumentTitle('Kashriff ||  Personal Portfolio');
+	useDocumentTitle('Kashriff ||  Creative Product Designer');
 
 	const {
 		loading: loading2,
